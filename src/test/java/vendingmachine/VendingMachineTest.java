@@ -7,6 +7,7 @@ import org.junit.Test;
 import vendingmachine.interaction.Order;
 import vendingmachine.interaction.item.exception.SoldOutException;
 import vendingmachine.interaction.money.Change;
+import vendingmachine.interaction.money.exception.NotFullPaidException;
 import vendingmachine.interaction.money.exception.NotSufficientChangeException;
 import vendingmachine.item.Item;
 import vendingmachine.item.selection.Chocolate;
@@ -83,6 +84,15 @@ public class VendingMachineTest {
 
         Assert.assertThat(itemOrder.getItem(), CoreMatchers.is(new Coke()));
         Assert.assertThat(itemOrder.getChange().getValue(), CoreMatchers.is(1.0));
+    }
+
+    @Test(expected = NotFullPaidException.class)
+    public void collectItemWhenHasNotPaidFull() throws Exception {
+        VendingMachine vendingMachine = new SimpleVendingMachine();
+        vendingMachine.selectItemAndGetPrice(new Coke());
+
+        vendingMachine.collectItemOrder();
+
     }
 
     @Test(expected = NotSufficientChangeException.class)

@@ -9,6 +9,7 @@ import vendingmachine.item.selection.Chocolate;
 import vendingmachine.interaction.money.Coin;
 import vendingmachine.item.selection.Coke;
 import vendingmachine.item.Item;
+import vendingmachine.item.selection.Fanta;
 import vendingmachine.money.*;
 import vendingmachine.store.Inventory;
 import vendingmachine.interaction.Order;
@@ -166,6 +167,7 @@ public class SimpleVendingMachine implements VendingMachine {
     private void addItemsAndMoneyToMachine() {
         machineGoodsInventory.addOf(new Coke(), 3);
         machineGoodsInventory.addOf(new Chocolate(), 3);
+        machineGoodsInventory.addOf(new Fanta(), 0);
 
         machineMoneyHolder.add(TWENTY);
         machineMoneyHolder.add(FIVE);

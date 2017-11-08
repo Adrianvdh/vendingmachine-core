@@ -1,16 +1,21 @@
 package vendingmachine;
 
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import vendingmachine.interaction.money.exception.NotSufficientChangeException;
+import vendingmachine.interaction.Order;
 import vendingmachine.interaction.item.exception.SoldOutException;
+import vendingmachine.interaction.money.Change;
+import vendingmachine.interaction.money.exception.NotSufficientChangeException;
+import vendingmachine.item.Item;
 import vendingmachine.item.selection.Chocolate;
 import vendingmachine.item.selection.Coke;
 import vendingmachine.item.selection.Fanta;
-import vendingmachine.item.Item;
-import vendingmachine.interaction.money.Change;
-import vendingmachine.interaction.Order;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import static vendingmachine.interaction.money.Coin.FIVE;
 import static vendingmachine.interaction.money.Coin.TWO;
@@ -18,6 +23,16 @@ import static vendingmachine.interaction.money.Note.ONE_HUNDRED;
 import static vendingmachine.interaction.money.Note.TEN;
 
 public class VendingMachineTest {
+
+
+    @Test
+    public void listAvailableItems() throws Exception {
+        VendingMachine vendingMachine = new SimpleVendingMachine();
+
+        Collection<Item> instockItems = vendingMachine.getInstockItems();
+
+        Assert.assertThat(instockItems, Matchers.containsInAnyOrder(new Coke(), new Chocolate()));
+    }
 
     @Test
     public void selectItemAndGetPriceOfItem() {

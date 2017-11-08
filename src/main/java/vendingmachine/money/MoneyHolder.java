@@ -1,9 +1,15 @@
 package vendingmachine.money;
 
+import vendingmachine.item.Item;
 import vendingmachine.store.Inventory;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
 
 public class MoneyHolder extends Inventory<Money> {
 
@@ -12,7 +18,11 @@ public class MoneyHolder extends Inventory<Money> {
     }
 
     public double getTotalAmount() {
-        double summingAmount = 0;
+        double summingAmount = 0.0;
+        return multipleAllItemMonetaryAmountByItemQuantity(summingAmount);
+    }
+
+    private double multipleAllItemMonetaryAmountByItemQuantity(double summingAmount) {
         for(Map.Entry<Money, Integer> item : inventory.entrySet()) {
             Double itemAmount = item.getKey().getMonetaryAmount();
             int itemQuantity = item.getValue();

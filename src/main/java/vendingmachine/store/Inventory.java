@@ -12,16 +12,9 @@ public class Inventory<T> {
 
     public Set<T> getAvailableItems() {
         return inventory.entrySet().stream()
-                .filter(item -> inventoryHasItem(item.getKey()))
                 .map(item -> item.getKey())
+                .filter(item -> inventoryHasItem(item))
                 .collect(Collectors.toSet());
-
-//        Set<T> availableItems = new HashSet<>();
-//        for (Map.Entry<T, Integer> item : inventory.entrySet()) {
-//            if(inventoryHasItem(item.getKey()))
-//                availableItems.add(item.getKey());
-//        }
-//        return availableItems;
     }
 
     public boolean hasItem(T item) {
@@ -50,8 +43,6 @@ public class Inventory<T> {
     public void clear() {
         inventory.clear();
     }
-
-
 
     private boolean inventoryHasItem(T item) {
         return inventory.containsKey(item) && inventory.get(item) > 0;

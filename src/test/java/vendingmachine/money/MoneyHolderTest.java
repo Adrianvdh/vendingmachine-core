@@ -20,4 +20,5 @@ public class MoneyHolderTest {
 
         Assert.assertThat(moneyHolder.getTotalAmount(), CoreMatchers.is(67.0));
     }
+
 }

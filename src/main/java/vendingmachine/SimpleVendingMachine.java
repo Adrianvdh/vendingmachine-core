@@ -96,17 +96,6 @@ public class SimpleVendingMachine implements VendingMachine {
         return this.currentBalance;
     }
 
-
-    @Override
-    public void addMoneyToInventory(Money... money) {
-        this.machineMoneyHolder.addMoney(money);
-    }
-
-    @Override
-    public void addItemToInventory(Item... items) {
-        Arrays.stream(items).forEach(item -> this.machineGoodsInventory.add(item));
-    }
-
     private void addMoneyToMachine(Money... money) {
         Arrays.stream(money).forEach(m -> {
             updateCurrentBalanceFromMoneyAmount(m);

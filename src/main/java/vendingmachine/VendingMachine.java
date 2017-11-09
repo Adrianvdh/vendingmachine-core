@@ -23,11 +23,7 @@ public interface VendingMachine {
 
     Order collectItemOrder();
 
-    void reset();
-
     Double getCurrentBalance();
 
-    void addMoneyToInventory(Money... money);
-
-    void addItemToInventory(Item... items);
+    void reset();
 }

@@ -28,9 +28,9 @@ public class SimpleVendingMachine implements VendingMachine {
     private Item selectedItem;
     private double currentBalance;
 
-    {
-        addItemsAndMoneyToMachine();
-    }
+//    {
+//        addItemsAndMoneyToMachine();
+//    }
 
     @Override
     public Set<Item> getInstockItems() {
@@ -98,6 +98,11 @@ public class SimpleVendingMachine implements VendingMachine {
         return this.currentBalance;
     }
 
+
+    @Override
+    public void addMoneyToInventory(Money... money) {
+        this.machineMoneyHolder.addMoney(money);
+    }
 
     private void addMoneyToMachine(Money... money) {
         Arrays.stream(money).forEach(m -> {

@@ -28,4 +28,6 @@ public interface VendingMachine {
     Double getCurrentBalance();
 
     void addMoneyToInventory(Money... money);
+
+    void addItemToInventory(Item... items);
 }

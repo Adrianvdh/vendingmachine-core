@@ -104,6 +104,11 @@ public class SimpleVendingMachine implements VendingMachine {
         this.machineMoneyHolder.addMoney(money);
     }
 
+    @Override
+    public void addItemToInventory(Item... items) {
+        Arrays.stream(items).forEach(item -> this.machineGoodsInventory.add(item));
+    }
+
     private void addMoneyToMachine(Money... money) {
         Arrays.stream(money).forEach(m -> {
             updateCurrentBalanceFromMoneyAmount(m);

@@ -73,7 +73,8 @@ public class VendingMachineTest {
 
     @Test
     public void insertMoneyAndGetRefund() throws Exception {
-        VendingMachine vendingMachine = new SimpleVendingMachine();
+        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+                .build();
         vendingMachine.insertCoin(FIVE);
         vendingMachine.insertNote(TEN);
 

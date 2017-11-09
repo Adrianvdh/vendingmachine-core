@@ -5,8 +5,8 @@ import vendingmachine.VendingMachine;
 import vendingmachine.interaction.money.Coin;
 import vendingmachine.interaction.money.Note;
 import vendingmachine.item.Item;
-import vendingmachine.item.selection.Chocolate;
-import vendingmachine.item.selection.Coke;
+import vendingmachine.money.MoneyHolder;
+import vendingmachine.store.Inventory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +17,9 @@ public class VendingMachineBuilder {
     private List<Note> notes = new ArrayList<>();
     private List<Coin> coins = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
+
+    private MoneyHolder cashInventory;
+    private Inventory<Item> goodsInventory;
 
     public static VendingMachineBuilder createVendingMachine() {
         return new VendingMachineBuilder();
@@ -42,10 +45,21 @@ public class VendingMachineBuilder {
     }
 
     public VendingMachine build() {
-        VendingMachine vendingMachine = new SimpleVendingMachine();
-        vendingMachine.addMoneyToInventory(notes.toArray(new Note[] {}));
-        vendingMachine.addMoneyToInventory(coins.toArray(new Coin[] {}));
-        vendingMachine.addItemToInventory(items.toArray(new Item[] {}));
+        provideGoodsInventory();
+        provideCashInventory();
+
+        VendingMachine vendingMachine = new SimpleVendingMachine(goodsInventory, cashInventory);
         return vendingMachine;
+    }
+
+    private void provideCashInventory() {
+        cashInventory = new MoneyHolder();
+        cashInventory.addMoney(notes.toArray(new Note[] {}));
+        cashInventory.addMoney(coins.toArray(new Coin[] {}));
+    }
+
+    private void provideGoodsInventory() {
+        goodsInventory = new Inventory<>();
+        items.forEach(item -> goodsInventory.add(item));
     }
 }

@@ -1,36 +1,34 @@
 package vendingmachine;
 
-import vendingmachine.interaction.money.exception.NotFullPaidException;
-import vendingmachine.interaction.money.exception.NotSufficientChangeException;
+import vendingmachine.interaction.Order;
 import vendingmachine.interaction.item.exception.SoldOutException;
 import vendingmachine.interaction.money.Change;
-import vendingmachine.interaction.money.Note;
-import vendingmachine.item.selection.Chocolate;
 import vendingmachine.interaction.money.Coin;
-import vendingmachine.item.selection.Coke;
+import vendingmachine.interaction.money.Note;
+import vendingmachine.interaction.money.exception.NotFullPaidException;
+import vendingmachine.interaction.money.exception.NotSufficientChangeException;
 import vendingmachine.item.Item;
-import vendingmachine.item.selection.Fanta;
-import vendingmachine.money.*;
+import vendingmachine.money.Money;
+import vendingmachine.money.MoneyHolder;
+import vendingmachine.money.MoneyUtil;
 import vendingmachine.store.Inventory;
-import vendingmachine.interaction.Order;
 
-import java.util.*;
-
-import static vendingmachine.interaction.money.Coin.FIVE;
-import static vendingmachine.interaction.money.Coin.ONE;
-import static vendingmachine.interaction.money.Note.TWENTY;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 
 public class SimpleVendingMachine implements VendingMachine {
 
-    private Inventory<Item> machineGoodsInventory = new Inventory<>();
-    private MoneyHolder machineMoneyHolder = new MoneyHolder();
+    private Inventory<Item> machineGoodsInventory;
+    private MoneyHolder machineMoneyHolder;
 
     private Item selectedItem;
     private double currentBalance;
 
-//    {
-//        addItemsAndMoneyToMachine();
-//    }
+    public SimpleVendingMachine(Inventory<Item> machineGoodsInventory, MoneyHolder machineMoneyHolder) {
+        this.machineGoodsInventory = machineGoodsInventory;
+        this.machineMoneyHolder = machineMoneyHolder;
+    }
 
     @Override
     public Set<Item> getInstockItems() {
@@ -171,16 +169,5 @@ public class SimpleVendingMachine implements VendingMachine {
 
     private void updateCurrentBalanceFromMoneyAmount(Money money) {
         currentBalance += money.getMonetaryAmount();
-    }
-
-
-    private void addItemsAndMoneyToMachine() {
-        machineGoodsInventory.addOf(new Coke(), 3);
-        machineGoodsInventory.addOf(new Chocolate(), 3);
-        machineGoodsInventory.addOf(new Fanta(), 0);
-
-        machineMoneyHolder.add(TWENTY);
-        machineMoneyHolder.add(FIVE);
-        machineMoneyHolder.add(ONE);
     }
 }

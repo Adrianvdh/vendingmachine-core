@@ -5,6 +5,7 @@ import vendingmachine.item.Item;
 import vendingmachine.interaction.money.Change;
 import vendingmachine.interaction.money.Note;
 import vendingmachine.interaction.Order;
+import vendingmachine.money.Money;
 
 import java.util.Collection;
 
@@ -22,7 +23,7 @@ public interface VendingMachine {
 
     Order collectItemOrder();
 
-    void reset();
-
     Double getCurrentBalance();
+
+    void reset();
 }

@@ -1,4 +1,4 @@
-package vendingmachine.builder;
+package vendingmachine.factory;
 
 import vendingmachine.SimpleVendingMachine;
 import vendingmachine.VendingMachine;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class VendingMachineBuilder {
+public class VendingMachineFactory {
 
     private List<Note> notes = new ArrayList<>();
     private List<Coin> coins = new ArrayList<>();
@@ -21,24 +21,24 @@ public class VendingMachineBuilder {
     private MoneyHolder cashInventory;
     private Inventory<Item> goodsInventory;
 
-    public static VendingMachineBuilder createVendingMachine() {
-        return new VendingMachineBuilder();
+    public static VendingMachineFactory createVendingMachine() {
+        return new VendingMachineFactory();
     }
 
 
-    public VendingMachineBuilder withNotes(Note... notes) {
+    public VendingMachineFactory withNotes(Note... notes) {
         Arrays.asList(notes).forEach(note -> this.notes.add(note));
 
         return this;
     }
 
-    public VendingMachineBuilder  withCoins(Coin... coins) {
+    public VendingMachineFactory withCoins(Coin... coins) {
         Arrays.asList(coins).forEach(coin -> this.coins.add(coin));
 
         return this;
     }
 
-    public VendingMachineBuilder withItems(Item... items) {
+    public VendingMachineFactory withItems(Item... items) {
         Arrays.asList(items).forEach(item -> this.items.add(item));
 
         return this;

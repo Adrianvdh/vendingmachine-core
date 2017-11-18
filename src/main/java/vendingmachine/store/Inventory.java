@@ -1,20 +1,17 @@
 package vendingmachine.store;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Inventory<T> {
 
-    protected Map<T, Integer> inventory = new HashMap<>();
+    protected Map<T, Integer> inventory = new LinkedHashMap<>();
 
     public Set<T> getAvailableItems() {
         return inventory.entrySet().stream()
                 .map(item -> item.getKey())
                 .filter(item -> inventoryHasItem(item))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public boolean hasItem(T item) {

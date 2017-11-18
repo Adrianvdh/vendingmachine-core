@@ -36,7 +36,7 @@ public class SimpleVendingMachine implements VendingMachine {
     }
 
     @Override
-    public Double selectItemAndGetPrice(Item item) {
+    public Double selectItemAndGetPrice(Item item) throws SoldOutException {
         if(machineGoodsInventory.hasItem(item)) {
             this.selectedItem = item;
             return selectedItem.getPrice();
@@ -64,7 +64,7 @@ public class SimpleVendingMachine implements VendingMachine {
     }
 
     @Override
-    public Order collectItemOrder() {
+    public Order collectItemOrder() throws NotFullPaidException {
         if(hasPaidInFull()) {
             double changeToReturn = getReturningChangeAmount();
 

@@ -1,9 +1,6 @@
 package vendingmachine.store;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Inventory<T> {
@@ -14,7 +11,7 @@ public class Inventory<T> {
         return inventory.entrySet().stream()
                 .map(item -> item.getKey())
                 .filter(item -> inventoryHasItem(item))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public boolean hasItem(T item) {
@@ -43,6 +40,8 @@ public class Inventory<T> {
     public void clear() {
         inventory.clear();
     }
+
+
 
     private boolean inventoryHasItem(T item) {
         return inventory.containsKey(item) && inventory.get(item) > 0;

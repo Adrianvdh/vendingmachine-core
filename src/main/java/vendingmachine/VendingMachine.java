@@ -1,6 +1,8 @@
 package vendingmachine;
 
+import vendingmachine.interaction.item.exception.SoldOutException;
 import vendingmachine.interaction.money.Coin;
+import vendingmachine.interaction.money.exception.NotFullPaidException;
 import vendingmachine.item.Item;
 import vendingmachine.interaction.money.Change;
 import vendingmachine.interaction.money.Note;
@@ -13,7 +15,7 @@ public interface VendingMachine {
 
     Collection<Item> getInstockItems();
 
-    Double selectItemAndGetPrice(Item item);
+    Double selectItemAndGetPrice(Item item) throws SoldOutException;
 
     void insertCoin(Coin... coins);
 
@@ -21,9 +23,7 @@ public interface VendingMachine {
 
     Change refundAndReturnChange();
 
-    Order collectItemOrder();
+    Order collectItemOrder() throws NotFullPaidException;
 
     Double getCurrentBalance();
-
-    void reset();
 }

@@ -4,7 +4,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import vendingmachine.builder.VendingMachineBuilder;
+import vendingmachine.factory.VendingMachineFactory;
 import vendingmachine.interaction.Order;
 import vendingmachine.interaction.item.exception.SoldOutException;
 import vendingmachine.interaction.money.Change;
@@ -26,10 +26,9 @@ import static vendingmachine.interaction.money.Note.TEN;
 
 public class VendingMachineTest {
 
-
     @Test
-    public void listAvailableItems() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void listAvailableItems() {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withItems(new Coke(), new Chocolate())
                 .build();
 
@@ -39,8 +38,8 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void selectItemAndGetPriceOfItem() {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void selectItemAndGetPriceOfItem() throws SoldOutException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withItems(new Coke())
                 .withNotes(Note.TEN)
                 .build();
@@ -52,8 +51,8 @@ public class VendingMachineTest {
     }
 
     @Test(expected = SoldOutException.class)
-    public void selectItemAndExpectItemToBeSoldOut() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void selectItemAndExpectItemToBeSoldOut() throws SoldOutException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .build();
         Item coldDrink = new Fanta();
 
@@ -61,8 +60,8 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void insertMoney() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void insertMoney() {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .build();
 
         vendingMachine.insertCoin(FIVE, TWO);
@@ -72,8 +71,8 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void insertMoneyAndGetRefund() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void insertMoneyAndGetRefund() {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .build();
         vendingMachine.insertCoin(FIVE);
         vendingMachine.insertNote(TEN);
@@ -84,8 +83,8 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void collectItemAndChange() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void collectItemAndChange() throws SoldOutException, NotFullPaidException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withItems(new Coke())
                 .withCoins(Coin.ONE)
                 .build();
@@ -99,8 +98,8 @@ public class VendingMachineTest {
     }
 
     @Test(expected = NotFullPaidException.class)
-    public void collectItemWhenHasNotPaidFull() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void collectItemWhenHasNotPaidFull() throws SoldOutException, NotFullPaidException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withItems(new Coke())
                 .build();
         vendingMachine.selectItemAndGetPrice(new Coke());
@@ -110,8 +109,8 @@ public class VendingMachineTest {
     }
 
     @Test(expected = NotSufficientChangeException.class)
-    public void collectItemAndNotSufficientChange() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
+    public void collectItemAndNotSufficientChange() throws SoldOutException, NotFullPaidException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withItems(new Chocolate())
                 .withNotes(Note.TWENTY)
                 .withCoins(Coin.FIVE, Coin.ONE)
@@ -122,16 +121,9 @@ public class VendingMachineTest {
 
         vendingMachine.collectItemOrder();
 
+        // The vending machine has a R20 note, R5 coin and a R1 coin.
+        // The returning change amount required is R15.0, which cannot be made-up from
+        // then machine's cash inventory.
     }
 
-    @Test(expected = SoldOutException.class)
-    public void resetAndTrySelectItem() throws Exception {
-        VendingMachine vendingMachine = VendingMachineBuilder.createVendingMachine()
-                .build();
-
-        vendingMachine.reset();
-        vendingMachine.insertCoin(FIVE, FIVE);
-
-        vendingMachine.selectItemAndGetPrice(new Coke());
-    }
 }

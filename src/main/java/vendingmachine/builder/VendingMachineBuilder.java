@@ -16,13 +16,8 @@ import java.util.stream.IntStream;
 
 public class VendingMachineBuilder {
 
-    private List<Money> monies = new ArrayList<>();
-    private List<Note> notes = new ArrayList<>();
-    private List<Coin> coins = new ArrayList<>();
-    private List<Item> items = new ArrayList<>();
-
-    private MoneyHolder cashInventory;
-    private Inventory<Item> goodsInventory;
+    private MoneyHolder cashInventory = new MoneyHolder();
+    private Inventory<Item> goodsInventory = new Inventory<>();
 
     public static VendingMachineBuilder createVendingMachine() {
         return new VendingMachineBuilder();
@@ -30,51 +25,33 @@ public class VendingMachineBuilder {
 
 
     public VendingMachineBuilder withNotes(Note... notes) {
-        Arrays.asList(notes).forEach(note -> this.notes.add(note));
+        cashInventory.addMoney(notes);
         return this;
     }
 
     public VendingMachineBuilder withMoneyOf(Money money, int quantity) {
-        for(int i = 0; i < quantity; i++)
-            monies.add(money);
-
+        cashInventory.addOf(money, quantity);
         return this;
     }
 
 
     public VendingMachineBuilder  withCoins(Coin... coins) {
-        Arrays.asList(coins).forEach(coin -> this.coins.add(coin));
+        cashInventory.addMoney(coins);
         return this;
     }
 
     public VendingMachineBuilder withItems(Item... items) {
-        Arrays.asList(items).forEach(item -> this.items.add(item));
+        Arrays.asList(items).forEach(item -> goodsInventory.add(item));
         return this;
     }
 
     public VendingMachineBuilder withItemOf(Item item, int quantity) {
-        for(int i = 0; i < quantity; i++)
-            items.add(item);
-
+        goodsInventory.addOf(item, quantity);
         return this;
     }
 
     public VendingMachine build() {
-        provideGoodsInventory();
-        provideCashInventory();
-
         VendingMachine vendingMachine = new SimpleVendingMachine(goodsInventory, cashInventory);
         return vendingMachine;
-    }
-
-    private void provideCashInventory() {
-        cashInventory = new MoneyHolder();
-        cashInventory.addMoney(notes.toArray(new Note[] {}));
-        cashInventory.addMoney(coins.toArray(new Coin[] {}));
-    }
-
-    private void provideGoodsInventory() {
-        goodsInventory = new Inventory<>();
-        items.forEach(item -> goodsInventory.add(item));
     }
 }

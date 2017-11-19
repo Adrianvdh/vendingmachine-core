@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Inventory<T> {
 
-    protected Map<T, Integer> inventory = new HashMap<>();
+    protected Map<T, Integer> inventory = new LinkedHashMap<>();
 
     public Set<T> getAvailableItems() {
         return inventory.entrySet().stream()

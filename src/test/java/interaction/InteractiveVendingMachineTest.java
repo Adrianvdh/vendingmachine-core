@@ -17,6 +17,7 @@ import vendingmachine.item.selection.Fanta;
 
 import java.io.PrintStream;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,9 @@ public class InteractiveVendingMachineTest {
 
         Collection<String> actualItems = interactiveVendingMachine.listAvailableItems();
 
-        Collection<String> expectedItems = vendingMachine.getInstockItems().stream().map(item -> item.getName()).collect(Collectors.toList());
+        Collection<String> expectedItems = vendingMachine.getInstockItems().stream()
+                .map(InteractiveVendingMachine::formatItem)
+                .collect(Collectors.toSet());
         Assert.assertEquals(expectedItems, actualItems);
     }
 }

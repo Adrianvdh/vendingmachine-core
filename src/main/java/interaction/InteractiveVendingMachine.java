@@ -15,6 +15,7 @@ import vendingmachine.item.selection.Fanta;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +38,13 @@ public class InteractiveVendingMachine {
 
     public Collection<String> listAvailableItems() {
         return cli
-                .<Item>listItemSelection(vendingMachine.getInstockItems(), item ->
-                        String.format("%s @ R%d", item.getName(), item.getPrice()))
+                .<Item>listItemSelection(vendingMachine.getInstockItems(), InteractiveVendingMachine::formatItem)
                 .show();
+    }
+
+    public static String formatItem(Item item) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return String.format("%s @ R%s", item.getName(), df.format(item.getPrice()));
     }
 
     static void showAvailableItems(VendingMachine vendingMachine, InputReader reader) {

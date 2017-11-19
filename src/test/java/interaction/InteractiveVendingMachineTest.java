@@ -1,5 +1,7 @@
 package interaction;
 
+import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,10 +16,15 @@ import vendingmachine.item.selection.Coke;
 import vendingmachine.item.selection.Fanta;
 
 import java.io.PrintStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InteractiveVendingMachineTest {
 
     VendingMachine vendingMachine;
+
+    TextIO textIO;
 
     @Before
     public void setUp() throws Exception {
@@ -31,14 +38,17 @@ public class InteractiveVendingMachineTest {
                 .withMoneyOf(Coin.TWO, 11)
                 .withMoneyOf(Coin.ONE, 7)
                 .build();
+
+        textIO = TextIoFactory.getTextIO();
     }
 
     @Test
-    public void listAvailableItems() throws Exception {
-        InteractiveVendingMachine interactiveVendingMachine = new InteractiveVendingMachine(vendingMachine, System.out);
+    public void listAvailableItems() {
+        InteractiveVendingMachine interactiveVendingMachine = new InteractiveVendingMachine(vendingMachine);
 
-        PrintStream printStream = interactiveVendingMachine.showAvailableItems();
+        Collection<String> actualItems = interactiveVendingMachine.listAvailableItems();
 
-        Assert.assertThat("Coke @ R9.0", CoreMatchers.is(printStream.toString()));
+        Collection<String> expectedItems = vendingMachine.getInstockItems().stream().map(item -> item.getName()).collect(Collectors.toList());
+        Assert.assertEquals(expectedItems, actualItems);
     }
 }

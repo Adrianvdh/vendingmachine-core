@@ -84,12 +84,6 @@ public class SimpleVendingMachine implements VendingMachine {
         }
     }
 
-    @Override
-    public void reset() {
-        machineMoneyHolder.clear();
-        machineGoodsInventory.clear();
-        clearSelectionAndCurrentBalance();
-    }
 
     @Override
     public Double getCurrentBalance() {

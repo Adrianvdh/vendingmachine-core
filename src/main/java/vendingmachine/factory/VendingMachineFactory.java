@@ -44,6 +44,10 @@ public class VendingMachineFactory {
         return this;
     }
 
+    public SpecialItemBuilder<VendingMachineFactory> withSpecial(Item... items) {
+        return new SpecialItemBuilder<VendingMachineFactory>();
+    }
+
     public VendingMachine build() {
         provideGoodsInventory();
         provideCashInventory();
@@ -62,4 +66,6 @@ public class VendingMachineFactory {
         goodsInventory = new Inventory<>();
         items.forEach(item -> goodsInventory.add(item));
     }
+
+
 }

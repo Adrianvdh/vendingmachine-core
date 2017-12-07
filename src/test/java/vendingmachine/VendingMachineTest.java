@@ -19,6 +19,7 @@ import vendingmachine.item.selection.Fanta;
 
 import java.util.Collection;
 
+import static vendingmachine.factory.SpecialItemBuilder.Combo.CHEAPEST_ONE_FREE;
 import static vendingmachine.interaction.money.Coin.FIVE;
 import static vendingmachine.interaction.money.Coin.TWO;
 import static vendingmachine.interaction.money.Note.ONE_HUNDRED;
@@ -121,9 +122,34 @@ public class VendingMachineTest {
 
         vendingMachine.collectItemOrder();
 
+<<<<<<< Updated upstream
         // The vending machine has a R20 note, R5 coin and a R1 coin.
         // The returning change amount required is R15.0, which cannot be made-up from
         // then machine's cash inventory.
+=======
+    }
+
+    @Test(expected = SoldOutException.class)
+    public void resetAndTrySelectItem() throws SoldOutException {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+                .build();
+
+        vendingMachine.reset();
+        vendingMachine.insertCoin(FIVE, FIVE);
+
+        vendingMachine.selectItemAndGetPrice(new Coke());
+    }
+
+    @Test
+    public void listInstockItemsAndIncludeSpecials() throws Exception {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+                .withSpecial(new Coke(), new LaysChips())
+                    .ofCombo(CHEAPEST_ONE_FREE) //use strategy pattern
+                .and()
+                .withItems(new Chocolate())
+                .withNotes(Note.TWENTY)
+                .build();
+>>>>>>> Stashed changes
     }
 
 }

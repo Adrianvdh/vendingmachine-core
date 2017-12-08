@@ -5,7 +5,6 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import vendingmachine.core.factory.SpecialItemBuilder;
-import vendingmachine.core.factory.SpecialItemBuilder.Combo;
 import vendingmachine.core.factory.VendingMachineFactory;
 import vendingmachine.core.interaction.Order;
 import vendingmachine.core.interaction.item.exception.SoldOutException;
@@ -124,16 +123,16 @@ public class VendingMachineTest {
     }
 
 
-//    @Test
-//    public void listInstockItemsAndIncludeSpecials() throws Exception {
-//        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
-//                .withSpecial(new Coke(), new LaysChips())
-//                .ofCombo(Combo.CHEAPEST_ONE_FREE) //use strategy pattern
-//                .and()
-//                .withItems(new Chocolate())
-//                .withNotes(Note.TWENTY)
-//                .build();
-//
-//
-//    }
+    @Test
+    public void listInstockItemsAndIncludeSpecials() throws Exception {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+                .withSpecial(new Coke(), new LaysChips())
+                    .ofCombo(SpecialItemBuilder.Combo.CHEAPEST_ONE_FREE) //use strategy pattern
+                .and()
+                .withItems(new Chocolate())
+                .withNotes(Note.TWENTY)
+                .build();
+
+
+    }
 }

@@ -2,7 +2,6 @@ package vendingmachine.core.factory;
 
 import vendingmachine.core.SimpleVendingMachine;
 import vendingmachine.core.VendingMachine;
-import vendingmachine.core.builder.VendingMachineBuilder;
 import vendingmachine.core.interaction.money.Coin;
 import vendingmachine.core.interaction.money.Note;
 import vendingmachine.core.item.Item;
@@ -10,9 +9,7 @@ import vendingmachine.core.money.Money;
 import vendingmachine.core.money.MoneyHolder;
 import vendingmachine.core.store.Inventory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class VendingMachineFactory {
 
@@ -48,6 +45,10 @@ public class VendingMachineFactory {
     public VendingMachineFactory withItemOf(Item item, int quantity) {
         goodsInventory.addOf(item, quantity);
         return this;
+    }
+
+    public SpecialItemBuilder<VendingMachineFactory> withSpecial(Item... items) {
+        return new SpecialItemBuilder<VendingMachineFactory>();
     }
 
     public VendingMachine build() {

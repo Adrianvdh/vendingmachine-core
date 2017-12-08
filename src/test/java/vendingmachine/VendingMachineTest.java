@@ -125,15 +125,15 @@ public class VendingMachineTest {
     }
 
 
-    @Test
-    public void listInstockItemsAndIncludeSpecials() throws Exception {
-        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
-                .withSpecial(new Coke(), new LaysChips())
-                .ofCombo(CHEAPEST_ONE_FREE) //use strategy pattern
-                .and()
-                .withItems(new Chocolate())
-                .withNotes(Note.TWENTY)
-                .build();
-
-    }
+//    @Test
+//    public void listInstockItemsAndIncludeSpecials() throws Exception {
+//        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+//                .withSpecial(new Coke(), new LaysChips())
+//                .ofCombo(CHEAPEST_ONE_FREE) //use strategy pattern
+//                .and()
+//                .withItems(new Chocolate())
+//                .withNotes(Note.TWENTY)
+//                .build();
+//
+//    }
 }

@@ -2,9 +2,11 @@ package vendingmachine.core.factory;
 
 import vendingmachine.core.SimpleVendingMachine;
 import vendingmachine.core.VendingMachine;
+import vendingmachine.core.builder.VendingMachineBuilder;
 import vendingmachine.core.interaction.money.Coin;
 import vendingmachine.core.interaction.money.Note;
 import vendingmachine.core.item.Item;
+import vendingmachine.core.money.Money;
 import vendingmachine.core.money.MoneyHolder;
 import vendingmachine.core.store.Inventory;
 
@@ -13,10 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VendingMachineFactory {
-
-    private List<Note> notes = new ArrayList<>();
-    private List<Coin> coins = new ArrayList<>();
-    private List<Item> items = new ArrayList<>();
 
     private MoneyHolder cashInventory;
     private Inventory<Item> goodsInventory;
@@ -27,44 +25,34 @@ public class VendingMachineFactory {
 
 
     public VendingMachineFactory withNotes(Note... notes) {
-        Arrays.asList(notes).forEach(note -> this.notes.add(note));
-
+        cashInventory.addMoney(notes);
         return this;
     }
 
-    public VendingMachineFactory withCoins(Coin... coins) {
-        Arrays.asList(coins).forEach(coin -> this.coins.add(coin));
+    public VendingMachineFactory withMoneyOf(Money money, int quantity) {
+        cashInventory.addOf(money, quantity);
+        return this;
+    }
 
+
+    public VendingMachineFactory  withCoins(Coin... coins) {
+        cashInventory.addMoney(coins);
         return this;
     }
 
     public VendingMachineFactory withItems(Item... items) {
-        Arrays.asList(items).forEach(item -> this.items.add(item));
-
+        Arrays.asList(items).forEach(item -> goodsInventory.add(item));
         return this;
     }
 
-    public SpecialItemBuilder<VendingMachineFactory> withSpecial(Item... items) {
-        return new SpecialItemBuilder<VendingMachineFactory>();
+    public VendingMachineFactory withItemOf(Item item, int quantity) {
+        goodsInventory.addOf(item, quantity);
+        return this;
     }
 
     public VendingMachine build() {
-        provideGoodsInventory();
-        provideCashInventory();
-
         VendingMachine vendingMachine = new SimpleVendingMachine(goodsInventory, cashInventory);
         return vendingMachine;
-    }
-
-    private void provideCashInventory() {
-        cashInventory = new MoneyHolder();
-        cashInventory.addMoney(notes.toArray(new Note[] {}));
-        cashInventory.addMoney(coins.toArray(new Coin[] {}));
-    }
-
-    private void provideGoodsInventory() {
-        goodsInventory = new Inventory<>();
-        items.forEach(item -> goodsInventory.add(item));
     }
 
 

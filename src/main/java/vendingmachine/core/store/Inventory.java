@@ -3,7 +3,7 @@ package vendingmachine.core.store;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Inventory<T> {
+public class Inventory<T> implements Iterable<T> {
 
     protected Map<T, Integer> inventory = new LinkedHashMap<>();
 
@@ -37,6 +37,10 @@ public class Inventory<T> {
         inventory.put(item, --quantity);
     }
 
+    public Integer getItemQuantity(T item) {
+        return inventory.get(item);
+    }
+
     public void clear() {
         inventory.clear();
     }
@@ -49,5 +53,10 @@ public class Inventory<T> {
 
     private boolean hasRecordButNoQuantityOfItem(T item) {
         return inventory.containsKey(item) && inventory.get(item) == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return getAvailableItems().iterator();
     }
 }

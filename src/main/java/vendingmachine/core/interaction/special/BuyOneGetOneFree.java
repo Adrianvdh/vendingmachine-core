@@ -5,6 +5,7 @@ import vendingmachine.core.store.Inventory;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 public class BuyOneGetOneFree {
 
@@ -22,7 +23,17 @@ public class BuyOneGetOneFree {
     }
 
     public Collection<Item> claimSpecial() {
-        return null;
 
+        Collection<Item> paidAndSpecialItems = new LinkedHashSet<>();
+        for(Item selectedItem : selectedItems) {
+            Integer itemQuantity = selectedItems.getItemQuantity(selectedItem);
+
+            while(itemQuantity % 2 != 0) {
+                paidAndSpecialItems.add(selectedItem);
+            }
+
+        }
+
+        return paidAndSpecialItems;
     }
 }

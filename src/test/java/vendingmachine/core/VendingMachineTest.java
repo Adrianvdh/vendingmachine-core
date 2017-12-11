@@ -3,6 +3,7 @@ package vendingmachine.core;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import vendingmachine.core.factory.SpecialItemBuilder;
 import vendingmachine.core.factory.VendingMachineFactory;
@@ -45,7 +46,7 @@ public class VendingMachineTest {
                 .build();
         Item coldDrink = new Coke();
 
-        double itemPrice = vendingMachine.selectItemAndGetPrice(coldDrink);
+        double itemPrice = vendingMachine.selectItemAndGetPrice(coldDrink); //match an item with an ID
 
         Assert.assertThat(itemPrice, CoreMatchers.is(9.0));
     }
@@ -80,7 +81,9 @@ public class VendingMachineTest {
         Change change = vendingMachine.refundAndReturnChange();
 
         Assert.assertThat(change.getValue(), CoreMatchers.is(15.0));
+        //Asser that vendingmachine balance is 0
     }
+
 
     @Test
     public void collectItemAndChange() throws SoldOutException, NotFullPaidException {
@@ -89,8 +92,10 @@ public class VendingMachineTest {
                 .withCoins(Coin.ONE)
                 .build();
         vendingMachine.insertNote(TEN);
-        vendingMachine.selectItemAndGetPrice(new Coke());
+//        vendingMachine.selectItemAndGetPrice(new Coke());
 
+        //perform an operation, vending machine has to be in state
+        //if item not selected, throw ItemNotSelectedException
         Order itemOrder = vendingMachine.collectItemOrder();
 
         Assert.assertThat(itemOrder.getItem(), CoreMatchers.is(new Coke()));
@@ -119,11 +124,12 @@ public class VendingMachineTest {
 
         vendingMachine.selectItemAndGetPrice(new Chocolate());
 
+        //should return just user's
         vendingMachine.collectItemOrder();
     }
 
 
-    @Test
+    @Test @Ignore
     public void listInstockItemsAndIncludeSpecials() throws Exception {
         VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
                 .withSpecial(new Coke(), new LaysChips())
@@ -133,6 +139,27 @@ public class VendingMachineTest {
                 .withNotes(Note.TWENTY)
                 .build();
 
-
     }
+
+//    @Test
+//    public void orderMultipleItems() throws Exception {
+//        //
+//        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+//                .withEligibleItems(new Chocolate(), new Coke())
+//                .build()
+//
+//
+//        Item coldDrink = new Coke();
+//
+//        vendingMachine.selectItemAndGetPrice(coldDrink);
+//
+//        Item food = new Chocolate();
+//
+//        vendingMachine.selectItemAndGetPrice(coldDrink);
+//        vendingMachine.selectItemAndGetPrice(food);
+//
+//        vendingMachine.showCart();
+//
+//
+//    }
 }

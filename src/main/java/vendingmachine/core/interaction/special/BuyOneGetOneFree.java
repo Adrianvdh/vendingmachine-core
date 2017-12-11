@@ -25,12 +25,12 @@ public class BuyOneGetOneFree {
     public Collection<Item> claimSpecial() {
 
         Collection<Item> paidAndSpecialItems = new LinkedHashSet<>();
+
         for(Item selectedItem : selectedItems) {
             Integer itemQuantity = selectedItems.getItemQuantity(selectedItem);
 
-            while(itemQuantity % 2 != 0) {
-                paidAndSpecialItems.add(selectedItem);
-            }
+            int i = itemQuantity;
+
 
         }
 

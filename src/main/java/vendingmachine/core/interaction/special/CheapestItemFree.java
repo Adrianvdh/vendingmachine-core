@@ -11,7 +11,7 @@ public class CheapestItemFree {
 
     Inventory<Item> itemInventory = new Inventory<Item>();
 
-    public void withEligibleItems(Item... items) {
+    public void registerEligibleItemsFromSystem(Item... items) {
         Arrays.asList(items).forEach(item -> itemInventory.add(item));
     }
 

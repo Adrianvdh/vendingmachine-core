@@ -145,7 +145,7 @@ public class VendingMachineTest {
 //    public void orderMultipleItems() throws Exception {
 //        //
 //        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
-//                .withEligibleItems(new Chocolate(), new Coke())
+//                .registerEligibleItemsFromSystem(new Chocolate(), new Coke())
 //                .build()
 //
 //

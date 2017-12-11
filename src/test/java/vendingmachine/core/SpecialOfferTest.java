@@ -15,11 +15,12 @@ public class SpecialOfferTest {
     public void cheapestOneFreeStrategy() throws Exception {
         CheapestItemFree cheapestItemFree = new CheapestItemFree();
 
-        cheapestItemFree.withEligibleItems(new Coke(), new Chocolate());
+        cheapestItemFree.registerEligibleItemsFromSystem(new Coke(), new Chocolate());
 
         Item cheapestItem = cheapestItemFree.claimSpecial();
-        Assert.assertThat(cheapestItem, Matchers.is(cheapestItem));
+        Assert.assertThat(new Coke(), Matchers.is(cheapestItem));
     }
+
 
 
     @Test

@@ -13,9 +13,9 @@ public class AlphanumericGridTest {
         AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
         alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
 
-        String selectionKey = "a2";
+        String selectionKey = "a1";
         alphanumericGrid.enterSelectionKey(selectionKey);
 
-        Assert.assertThat("Classic Coke", Matchers.is(alphanumericGrid.getSelectedItem()));
+        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Classic Coke"));
     }
 }

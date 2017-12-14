@@ -9,8 +9,11 @@ import vendingmachine.core.interaction.money.Note;
 import vendingmachine.core.interaction.Order;
 
 import java.util.Collection;
+import java.util.Map;
 
 public interface VendingMachine {
+
+    Map<String,String> listInstockItemsWithId();
 
     Collection<Item> getInstockItems();
 

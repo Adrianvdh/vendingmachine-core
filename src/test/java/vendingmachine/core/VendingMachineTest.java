@@ -4,7 +4,6 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import vendingmachine.core.factory.SpecialItemBuilder;
 import vendingmachine.core.factory.VendingMachineFactory;
 import vendingmachine.core.interaction.Order;
 import vendingmachine.core.interaction.item.exception.SoldOutException;
@@ -17,14 +16,25 @@ import vendingmachine.core.item.Item;
 import vendingmachine.core.item.selection.Chocolate;
 import vendingmachine.core.item.selection.Coke;
 import vendingmachine.core.item.selection.Fanta;
-import vendingmachine.core.item.selection.LaysChips;
 
 import java.util.Collection;
+import java.util.Map;
 
 import static vendingmachine.core.interaction.money.Note.ONE_HUNDRED;
 import static vendingmachine.core.interaction.money.Note.TEN;
 
 public class VendingMachineTest {
+
+    @Test
+    public void listInstockItems() throws Exception {
+        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
+                .withItems(new Coke(), new Chocolate())
+                .build();
+
+        Map<String, String> instockItems = vendingMachine.listInstockItemsWithId();
+
+        Assert.assertThat(instockItems.values(), Matchers.containsInAnyOrder(new Coke(), new Chocolate()));
+    }
 
     @Test
     public void listAvailableItems() {
@@ -120,19 +130,5 @@ public class VendingMachineTest {
         vendingMachine.selectItemAndGetPrice(new Chocolate());
 
         vendingMachine.collectItemOrder();
-    }
-
-
-    @Test
-    public void listInstockItemsAndIncludeSpecials() throws Exception {
-        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
-                .withSpecial(new Coke(), new LaysChips())
-                    .ofCombo(SpecialItemBuilder.Combo.CHEAPEST_ONE_FREE) //use strategy pattern
-                .and()
-                .withItems(new Chocolate())
-                .withNotes(Note.TWENTY)
-                .build();
-
-
     }
 }

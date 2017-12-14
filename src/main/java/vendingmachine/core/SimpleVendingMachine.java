@@ -13,9 +13,7 @@ import vendingmachine.core.money.MoneyHolder;
 import vendingmachine.core.money.MoneyUtil;
 import vendingmachine.core.store.Inventory;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 public class SimpleVendingMachine implements VendingMachine {
 
@@ -28,6 +26,20 @@ public class SimpleVendingMachine implements VendingMachine {
     public SimpleVendingMachine(Inventory<Item> machineGoodsInventory, MoneyHolder machineMoneyHolder) {
         this.machineGoodsInventory = machineGoodsInventory;
         this.machineMoneyHolder = machineMoneyHolder;
+    }
+
+    @Override
+    public Map<String, String> listInstockItemsWithId() {
+        Map<String, String> instockItemsWithId = new HashMap<>();
+
+        int idInt = 0;
+        for(Item item : machineGoodsInventory.getAvailableItems()) {
+
+            instockItemsWithId.put("01", item.getName());
+            idInt++;
+        }
+
+        return instockItemsWithId;
     }
 
     @Override

@@ -1,13 +1,12 @@
 package vendingmachine.core;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AlphanumericGrid {
 
     private String[][] grid;
 
-    private int columnLenghth;
+    private int columnLength;
     private int rowLength;
 
     String selectedItem;
@@ -19,7 +18,7 @@ public class AlphanumericGrid {
     }
 
     public AlphanumericGrid(int columnLength, int rowLength) {
-        this.columnLenghth = columnLength;
+        this.columnLength = columnLength;
         this.rowLength = rowLength;
         grid = new String[columnLength][rowLength];
     }
@@ -28,11 +27,12 @@ public class AlphanumericGrid {
         //populate grid
 
         int itemIndex = 0;
-        for (int columnIndex = 0; columnIndex < columnLenghth; columnIndex++) {
-            for (int rowIndex = 0; rowIndex < rowLength; rowIndex++) {
+        for (int rowLetterIndex = 0; rowLetterIndex < rowLength; rowLetterIndex++) {
+            for (int columnNumberIndex = 0; columnNumberIndex < columnLength; columnNumberIndex++) {
+
                 if(itemIndex < itemsToDisplay.size()) {
                     String item = itemsToDisplay.get(itemIndex);
-                    grid[rowIndex][columnIndex] = item;
+                    grid[rowLetterIndex][columnNumberIndex] = item;
                 }
                 itemIndex++;
 
@@ -42,13 +42,12 @@ public class AlphanumericGrid {
     }
 
     public void enterSelectionKey(String selectionKey) {
-
         //parse key to index
         int rowLetter = selectionKey.charAt(0) - 97;
         int columnNumber = Integer.parseInt(selectionKey.substring(1, selectionKey.length())) - 1;
 
         //get item from index
-        this.selectedItem = grid[columnNumber][rowLetter];
+        this.selectedItem = grid[rowLetter][columnNumber];
     }
 
     public String getSelectedItem() {

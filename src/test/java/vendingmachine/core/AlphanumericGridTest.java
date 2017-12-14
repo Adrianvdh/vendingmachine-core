@@ -8,14 +8,28 @@ import java.util.Arrays;
 
 public class AlphanumericGridTest {
 
+
     @Test
     public void testRetrievalOfItemNameWithKey() throws Exception {
         AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
         alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
 
-        String selectionKey = "a1";
+        String selectionKey = "a2";
+        alphanumericGrid.enterSelectionKey(selectionKey);
+
+        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Diary Chocolate"));
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testRetrievalOfNonExistantItemOnGrid() throws Exception {
+        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
+        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
+
+        String selectionKey = "b4";
         alphanumericGrid.enterSelectionKey(selectionKey);
 
         Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Classic Coke"));
+
     }
 }

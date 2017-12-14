@@ -1,6 +1,5 @@
 package vendingmachine.core;
 
-import java.util.Collection;
 import java.util.List;
 
 public class AlphanumericGrid {
@@ -10,6 +9,11 @@ public class AlphanumericGrid {
     private int columnLenghth;
     private int rowLength;
 
+    String selectedItem;
+
+    public static void main(String[] args) {
+        System.out.println((int)'a');
+    }
 
     public AlphanumericGrid(int columnLength, int rowLength) {
         this.columnLenghth = columnLength;
@@ -35,7 +39,12 @@ public class AlphanumericGrid {
     }
 
     public void enterSelectionKey(String selectionKey) {
-        //select item from grid
+        //parse key to index
+        int rowLetter = selectionKey.charAt(0) - 97;
+        int columnNumber = Integer.parseInt(selectionKey.substring(1, selectionKey.length()-1)) - 1;
+
+        //get item from index
+        this.selectedItem = grid[columnNumber][rowLetter];
     }
 
     public String getSelectedItem() {

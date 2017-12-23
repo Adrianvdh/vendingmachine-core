@@ -42,16 +42,16 @@ public class AlphanumericGridTest {
         alphanumericGrid.enterSelectionKey(selectionKey);
     }
 
-//    @Test(expected = IndexOutOfBoundsException.class)
-//    public void testRetrievalInvalidKeyPosition() throws Exception {
-//        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
-//        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
-//
-//        String selectionKey = "d1";
-//        alphanumericGrid.enterSelectionKey(selectionKey);
-//
-//        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Lays Original"));
-//    }
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRetrievalInvalidKeyPosition() throws Exception {
+        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
+        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
+
+        String selectionKey = "d11";
+        alphanumericGrid.enterSelectionKey(selectionKey);
+
+        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Lays Original"));
+    }
 
 
 

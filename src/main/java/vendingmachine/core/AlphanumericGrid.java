@@ -1,6 +1,5 @@
 package vendingmachine.core;
 
-import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -12,12 +11,6 @@ public class AlphanumericGrid {
     private int rowLength;
 
     String selectedItem;
-
-    public static void main(String[] args) {
-        System.out.println((int)'a');
-
-        System.out.println("hello".substring(1, 3));
-    }
 
     public AlphanumericGrid(int columnLength, int rowLength) {
         this.columnLength = columnLength;
@@ -53,7 +46,10 @@ public class AlphanumericGrid {
         int rowLetter = selectionKey.charAt(0) - 97;
         int columnNumber = Integer.parseInt(selectionKey.substring(1, selectionKey.length())) - 1;
         if(columnNumber > this.columnLength)
-            throw new IllegalArgumentException("Collu")
+            throw new IndexOutOfBoundsException("Column selection size is to large for this grid!");
+
+        if(rowLetter > this.rowLength)
+            throw new IndexOutOfBoundsException("Row position is out of the bounds for this grid!");
 
         //get item from index
         this.selectedItem = grid[rowLetter][columnNumber];

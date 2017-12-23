@@ -1,6 +1,8 @@
 package vendingmachine.core;
 
+import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AlphanumericGrid {
 
@@ -42,9 +44,16 @@ public class AlphanumericGrid {
     }
 
     public void enterSelectionKey(String selectionKey) {
+        //validate selectionKey
+        if (!Pattern.matches("^[a-z][1-9]+$", selectionKey)) {
+            throw new IllegalArgumentException("selectionKey is in the incorrect format!");
+        }
+
         //parse key to index
         int rowLetter = selectionKey.charAt(0) - 97;
         int columnNumber = Integer.parseInt(selectionKey.substring(1, selectionKey.length())) - 1;
+        if(columnNumber > this.columnLength)
+            throw new IllegalArgumentException("Collu")
 
         //get item from index
         this.selectedItem = grid[rowLetter][columnNumber];

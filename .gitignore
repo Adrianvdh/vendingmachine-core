@@ -3,6 +3,7 @@ target/
 .recommenders
 .idea
 
+*.iml
 *.tmp
 *.bak
 *.swp

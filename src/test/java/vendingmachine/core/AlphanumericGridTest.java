@@ -38,10 +38,9 @@ public class AlphanumericGridTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testRetrievalWithSelectionKeyOfLeadingZeroColumnNumber_PatternShouldFail() throws Exception {
+        // when
         String selectionKey = "b001";
         alphanumericGrid.enterSelectionKey(selectionKey);
-
-        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Lays Original"));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -49,18 +48,29 @@ public class AlphanumericGridTest {
         AlphanumericGrid alphanumericGrid = new AlphanumericGrid(2, 10);
         alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
 
+        // when
         String selectionKey = "bb23";
         alphanumericGrid.enterSelectionKey(selectionKey);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRetrievalInvalidKeyPosition() throws Exception {
-        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10, 10);
-        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
-
+        // when
         String selectionKey = "d11";
         alphanumericGrid.enterSelectionKey(selectionKey);
+    }
 
-        Assert.assertThat(alphanumericGrid.getSelectedItem(), Matchers.is("Lays Original"));
+    @Test
+    public void removeItemAndTryRetrieveIt() throws Exception {
+        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(10,10);
+        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
+
+        // when (item becomes sold out)
+        this.alphanumericGrid.removeItemByName("Classic Coke");
+
+        // then
+        String selectionKey = "a1";
+        this.alphanumericGrid.enterSelectionKey(selectionKey);
+        Assert.assertEquals(alphanumericGrid.getSelectedItem(), null);
     }
 }

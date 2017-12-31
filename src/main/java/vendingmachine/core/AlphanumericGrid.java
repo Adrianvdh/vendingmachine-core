@@ -20,7 +20,6 @@ public class AlphanumericGrid {
 
     public void loadDisplayableItems(List<String> itemsToDisplay) {
         //populate grid
-
         int itemIndex = 0;
         for (int rowLetterIndex = 0; rowLetterIndex < rowLength; rowLetterIndex++) {
             for (int columnNumberIndex = 0; columnNumberIndex < columnLength; columnNumberIndex++) {
@@ -37,22 +36,43 @@ public class AlphanumericGrid {
     }
 
     public void enterSelectionKey(String selectionKey) {
-        //validate selectionKey
+        validateSelectionKey(selectionKey);
+
+        int rowNumber = getRowIndexFromAlphabetCharacter(selectionKey);
+        int columnNumber = getColumnNumberFromRemainingSelectionKey(selectionKey);
+
+        if(columnNumberIsOutOfBoundsOfGrid(columnNumber))
+            throw new IndexOutOfBoundsException("Column selection size is to large for this grid!");
+        if(rowNumberIsOutOfBoundsOfGrid(rowNumber))
+            throw new IndexOutOfBoundsException("Row position is out of the bounds for this grid!");
+
+        this.selectedItem = getItemFromIndexes(rowNumber, columnNumber);
+    }
+
+    private boolean rowNumberIsOutOfBoundsOfGrid(int rowNumber) {
+        return rowNumber > this.rowLength;
+    }
+
+    private boolean columnNumberIsOutOfBoundsOfGrid(int columnNumber) {
+        return columnNumber > this.columnLength;
+    }
+
+    private String getItemFromIndexes(int rowLetter, int columnNumber) {
+        return grid[rowLetter][columnNumber];
+    }
+
+    private int getColumnNumberFromRemainingSelectionKey(String selectionKey) {
+        return Integer.parseInt(selectionKey.substring(1, selectionKey.length())) - 1;
+    }
+
+    private int getRowIndexFromAlphabetCharacter(String selectionKey) {
+        return (int) selectionKey.charAt(0) - 97;
+    }
+
+    private void validateSelectionKey(String selectionKey) {
         if (!Pattern.matches("^[a-z][1-9]+$", selectionKey)) {
             throw new IllegalArgumentException("selectionKey is in the incorrect format!");
         }
-
-        //parse key to index
-        int rowLetter = selectionKey.charAt(0) - 97;
-        int columnNumber = Integer.parseInt(selectionKey.substring(1, selectionKey.length())) - 1;
-        if(columnNumber > this.columnLength)
-            throw new IndexOutOfBoundsException("Column selection size is to large for this grid!");
-
-        if(rowLetter > this.rowLength)
-            throw new IndexOutOfBoundsException("Row position is out of the bounds for this grid!");
-
-        //get item from index
-        this.selectedItem = grid[rowLetter][columnNumber];
     }
 
     public String getSelectedItem() {

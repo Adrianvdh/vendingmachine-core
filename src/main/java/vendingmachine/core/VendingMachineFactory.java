@@ -1,12 +1,12 @@
-package vendingmachine.core.factory;
+package vendingmachine.core;
 
-import vendingmachine.core.SimpleVendingMachine;
-import vendingmachine.core.VendingMachine;
-import vendingmachine.core.interaction.money.Coin;
-import vendingmachine.core.interaction.money.Note;
+import vendingmachine.core.internal.SimpleVendingMachine;
+import vendingmachine.core.internal.factory.SpecialItemBuilder;
+import vendingmachine.core.interaction.Coin;
+import vendingmachine.core.interaction.Note;
 import vendingmachine.core.item.Item;
-import vendingmachine.core.money.Money;
-import vendingmachine.core.money.MoneyHolder;
+import vendingmachine.core.interaction.Money;
+import vendingmachine.core.store.MoneyHolder;
 import vendingmachine.core.store.Inventory;
 
 import java.util.Arrays;

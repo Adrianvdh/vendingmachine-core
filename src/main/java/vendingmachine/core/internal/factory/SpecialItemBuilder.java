@@ -1,4 +1,4 @@
-package vendingmachine.core.factory;
+package vendingmachine.core.internal.factory;
 
 public class SpecialItemBuilder<T> extends AbstractBuilderConfigurer<T> {
 

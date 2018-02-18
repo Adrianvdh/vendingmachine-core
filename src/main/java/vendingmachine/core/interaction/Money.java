@@ -1,4 +1,4 @@
-package vendingmachine.core.money;
+package vendingmachine.core.interaction;
 
 public interface Money {
     Double getMonetaryAmount();

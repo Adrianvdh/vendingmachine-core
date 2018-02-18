@@ -4,24 +4,22 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import vendingmachine.core.factory.VendingMachineFactory;
 import vendingmachine.core.interaction.Order;
-import vendingmachine.core.interaction.item.exception.SoldOutException;
-import vendingmachine.core.interaction.money.Change;
-import vendingmachine.core.interaction.money.Coin;
-import vendingmachine.core.interaction.money.Note;
-import vendingmachine.core.interaction.money.exception.NotFullPaidException;
-import vendingmachine.core.interaction.money.exception.NotSufficientChangeException;
+import vendingmachine.core.internal.SoldOutException;
+import vendingmachine.core.interaction.Change;
+import vendingmachine.core.interaction.Coin;
+import vendingmachine.core.interaction.Note;
+import vendingmachine.core.internal.NotFullPaidException;
+import vendingmachine.core.internal.NotSufficientChangeException;
 import vendingmachine.core.item.Item;
 import vendingmachine.core.item.selection.Chocolate;
 import vendingmachine.core.item.selection.Coke;
 import vendingmachine.core.item.selection.Fanta;
 
-import java.util.Collection;
 import java.util.Map;
 
-import static vendingmachine.core.interaction.money.Note.ONE_HUNDRED;
-import static vendingmachine.core.interaction.money.Note.TEN;
+import static vendingmachine.core.interaction.Note.ONE_HUNDRED;
+import static vendingmachine.core.interaction.Note.TEN;
 
 public class VendingMachineTest {
 

@@ -1,6 +1,6 @@
-package vendingmachine.core.factory;
+package vendingmachine.core.internal.factory;
 
-public class AbstractBuilderConfigurer<T> {
+class AbstractBuilderConfigurer<T> {
 
     private T builder;
 
@@ -11,7 +11,7 @@ public class AbstractBuilderConfigurer<T> {
         return builder;
     }
 
-    public T and() {
+    protected T and() {
         return getBuilder();
     }
 

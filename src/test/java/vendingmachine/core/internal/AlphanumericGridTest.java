@@ -1,4 +1,4 @@
-package vendingmachine.core;
+package vendingmachine.core.internal;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;

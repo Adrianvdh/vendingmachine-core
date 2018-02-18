@@ -1,4 +1,4 @@
-package vendingmachine.core.interaction.item.exception;
+package vendingmachine.core.internal;
 
 public class SoldOutException extends Exception {
     public SoldOutException(String message) {

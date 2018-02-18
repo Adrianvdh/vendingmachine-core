@@ -1,6 +1,5 @@
 package vendingmachine.core.interaction;
 
-import vendingmachine.core.interaction.money.Change;
 import vendingmachine.core.item.Item;
 
 public class Order {

@@ -1,9 +1,9 @@
-package vendingmachine.core;
+package vendingmachine.core.internal;
 
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class AlphanumericGrid {
+class AlphanumericGrid {
 
     private String[][] grid;
 
@@ -12,13 +12,13 @@ public class AlphanumericGrid {
 
     private String selectedItem;
 
-    public AlphanumericGrid(int columnLength, int rowLength) {
+    protected AlphanumericGrid(int columnLength, int rowLength) {
         this.columnLength = columnLength;
         this.rowLength = rowLength;
         grid = new String[columnLength][rowLength];
     }
 
-    public void loadDisplayableItems(List<String> itemsToDisplay) {
+    protected void loadDisplayableItems(List<String> itemsToDisplay) {
         Set<String> existingItems = new LinkedHashSet<>();
         //populate grid
         int itemIndex = 0;
@@ -41,7 +41,7 @@ public class AlphanumericGrid {
 
     }
 
-    public Map<String, String> showItems() {
+    protected Map<String, String> showItems() {
         Map<String, String> gridItems = new HashMap<>();
         int itemIndex = 0;
 
@@ -67,7 +67,7 @@ public class AlphanumericGrid {
         return String.valueOf((char) (index + 97));
     }
 
-    public void enterSelectionKey(String selectionKey) {
+    protected void enterSelectionKey(String selectionKey) {
         validateSelectionKey(selectionKey);
 
         int rowNumber = getRowIndexFromAlphabetCharacter(selectionKey);
@@ -81,7 +81,7 @@ public class AlphanumericGrid {
         this.selectedItem = getValueFromGridAt(rowNumber, columnNumber);
     }
 
-    public void removeItemByName(String itemName) {
+    protected void removeItemByName(String itemName) {
         //search array for item by name
         for(int rowNum = 0; rowNum < rowLength; rowNum++) {
             for(int colNum = 0; colNum < columnLength; colNum++) {
@@ -95,7 +95,7 @@ public class AlphanumericGrid {
         }
     }
 
-    public String getSelectedItem() {
+    protected String getSelectedItem() {
         return this.selectedItem;
     }
 

@@ -1,6 +1,6 @@
-package vendingmachine.core.money;
+package vendingmachine.core.store;
 
-import vendingmachine.core.store.Inventory;
+import vendingmachine.core.interaction.Money;
 
 import java.util.Arrays;
 import java.util.Map;

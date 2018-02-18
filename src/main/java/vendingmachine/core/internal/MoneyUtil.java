@@ -1,14 +1,18 @@
-package vendingmachine.core.money;
+package vendingmachine.core.internal;
 
-import vendingmachine.core.interaction.money.exception.NotSufficientChangeException;
-import vendingmachine.core.interaction.money.Coin;
-import vendingmachine.core.interaction.money.Note;
+import vendingmachine.core.interaction.Coin;
+import vendingmachine.core.interaction.Money;
+import vendingmachine.core.interaction.Note;
+import vendingmachine.core.store.MoneyHolder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
-public class MoneyUtil {
+class MoneyUtil {
 
-    public static Collection<Money> collectAmountWorthOfMoneyFromMachine(double amount, MoneyHolder moneyHolder) throws NotSufficientChangeException {
+    protected static Collection<Money> collectAmountWorthOfMoneyFromMachine(double amount, MoneyHolder moneyHolder) throws NotSufficientChangeException {
         if (amountToSmallToConvertToMoney(amount)) return noMoney();
 
         Double balance = amount;
@@ -23,7 +27,7 @@ public class MoneyUtil {
         moneyReducer.reduceBy(Coin.values());
 
         if(machineLacksMoneyToReduce(moneyReducer))
-            throw new NotSufficientChangeException("The machine lacks the money you wish to convert to coins and notes.");
+            throw new NotSufficientChangeException("The machine lacks the store you wish to convert to coins and notes.");
 
         return moneyReducer.getAmountWorthOfMoney();
     }
@@ -47,7 +51,7 @@ public class MoneyUtil {
 
         private MoneyHolder moneyHolder;
 
-        public void reduceBy(Money[] monetaryItem) {
+        protected void reduceBy(Money[] monetaryItem) {
             Arrays.stream(monetaryItem).forEach(money -> {
                 if(canBeReducedByMoneyAmount(money) && moneyHolder.hasItem(money)) {
                     deductMoneyFromMachine(money);

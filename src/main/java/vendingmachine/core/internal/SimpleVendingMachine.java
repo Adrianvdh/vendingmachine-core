@@ -1,19 +1,17 @@
-package vendingmachine.core;
+package vendingmachine.core.internal;
 
+import vendingmachine.core.VendingMachine;
 import vendingmachine.core.interaction.Order;
-import vendingmachine.core.interaction.item.exception.SoldOutException;
-import vendingmachine.core.interaction.money.Change;
-import vendingmachine.core.interaction.money.Coin;
-import vendingmachine.core.interaction.money.Note;
-import vendingmachine.core.interaction.money.exception.NotFullPaidException;
-import vendingmachine.core.interaction.money.exception.NotSufficientChangeException;
+import vendingmachine.core.interaction.Change;
+import vendingmachine.core.interaction.Coin;
+import vendingmachine.core.interaction.Note;
 import vendingmachine.core.item.Item;
-import vendingmachine.core.money.Money;
-import vendingmachine.core.money.MoneyHolder;
-import vendingmachine.core.money.MoneyUtil;
+import vendingmachine.core.interaction.Money;
+import vendingmachine.core.store.MoneyHolder;
 import vendingmachine.core.store.Inventory;
+import  vendingmachine.core.internal.*;
 
-import java.text.DecimalFormat;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -95,7 +93,7 @@ public class SimpleVendingMachine implements VendingMachine {
                 return itemAndChange(changeInMoney);
             }
             catch(NotSufficientChangeException e) {
-                throw new NotSufficientChangeException("The machine unfortunately has not enough money for your change.");
+                throw new NotSufficientChangeException("The machine unfortunately has not enough store for your change.");
             }
         }
         else {

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Inventory<T> {
 
-    protected Map<T, Integer> inventory = new LinkedHashMap<>();
+    public Map<T, Integer> inventory = new LinkedHashMap<>();
 
     public Set<T> getAvailableItems() {
         return inventory.entrySet().stream()
@@ -40,8 +40,6 @@ public class Inventory<T> {
     public void clear() {
         inventory.clear();
     }
-
-
 
     private boolean inventoryHasItem(T item) {
         return inventory.containsKey(item) && inventory.get(item) > 0;

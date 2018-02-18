@@ -1,13 +1,13 @@
-package vendingmachine.core.money;
+package vendingmachine.core.store;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static vendingmachine.core.interaction.money.Coin.FIVE;
-import static vendingmachine.core.interaction.money.Coin.TWO;
-import static vendingmachine.core.interaction.money.Note.FIFTY;
-import static vendingmachine.core.interaction.money.Note.TEN;
+import static vendingmachine.core.interaction.Coin.FIVE;
+import static vendingmachine.core.interaction.Coin.TWO;
+import static vendingmachine.core.interaction.Note.FIFTY;
+import static vendingmachine.core.interaction.Note.TEN;
 
 public class MoneyHolderTest {
 

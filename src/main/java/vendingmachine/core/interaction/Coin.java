@@ -1,6 +1,6 @@
-package vendingmachine.core.interaction.money;
+package vendingmachine.core.interaction;
 
-import vendingmachine.core.money.Money;
+import vendingmachine.core.interaction.Money;
 
 public enum Coin implements Money {
     FIVE(5.0),

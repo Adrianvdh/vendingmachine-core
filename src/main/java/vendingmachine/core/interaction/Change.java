@@ -1,7 +1,6 @@
-package vendingmachine.core.interaction.money;
+package vendingmachine.core.interaction;
 
-import vendingmachine.core.money.Money;
-import vendingmachine.core.money.MoneyHolder;
+import vendingmachine.core.store.MoneyHolder;
 
 import java.util.Collection;
 

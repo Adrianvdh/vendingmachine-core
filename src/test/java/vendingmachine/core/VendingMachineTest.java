@@ -33,18 +33,8 @@ public class VendingMachineTest {
 
         Map<String, String> instockItems = vendingMachine.listInstockItemsWithId();
 
-        Assert.assertThat(instockItems.values(), Matchers.containsInAnyOrder(new Coke(), new Chocolate()));
-    }
-
-    @Test
-    public void listAvailableItems() {
-        VendingMachine vendingMachine = VendingMachineFactory.createVendingMachine()
-                .withItems(new Coke(), new Chocolate())
-                .build();
-
-        Collection<Item> instockItems = vendingMachine.getInstockItems();
-
-        Assert.assertThat(instockItems, Matchers.containsInAnyOrder(new Coke(), new Chocolate()));
+        Assert.assertThat(instockItems.get("a1"), Matchers.is("Coke"));
+        Assert.assertThat(instockItems.get("a2"), Matchers.is("Chocolate"));
     }
 
     @Test

@@ -55,11 +55,6 @@ public class SimpleVendingMachine implements VendingMachine {
     }
 
     @Override
-    public Set<Item> getInstockItems() {
-        return machineGoodsInventory.getAvailableItems();
-    }
-
-    @Override
     public Double selectItemAndGetPrice(Item item) throws SoldOutException {
         if(machineGoodsInventory.hasItem(item)) {
             this.selectedItem = item;

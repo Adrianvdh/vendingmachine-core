@@ -15,8 +15,6 @@ public interface VendingMachine {
 
     Map<String, String> listInstockItemsWithId();
 
-    Collection<Item> getInstockItems();
-
     Double selectItemAndGetPrice(Item item) throws SoldOutException;
 
     void insertCoin(Coin... coins);

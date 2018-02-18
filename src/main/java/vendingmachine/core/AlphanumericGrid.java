@@ -26,13 +26,17 @@ public class AlphanumericGrid {
 
                 if(itemIndex < itemsToDisplay.size()) {
                     String item = itemsToDisplay.get(itemIndex);
-                    grid[rowLetterIndex][columnNumberIndex] = item;
+                    setValueOfGridAt(rowLetterIndex, columnNumberIndex, item);
                 }
                 itemIndex++;
 
             }
         }
 
+    }
+
+    private void setValueOfGridAt(int rowLetterIndex, int columnNumberIndex, String value) {
+        grid[rowLetterIndex][columnNumberIndex] = value;
     }
 
     public void enterSelectionKey(String selectionKey) {
@@ -46,7 +50,7 @@ public class AlphanumericGrid {
         if(rowNumberIsOutOfBoundsOfGrid(rowNumber))
             throw new IndexOutOfBoundsException("Row position is out of the bounds for this grid!");
 
-        this.selectedItem = getItemFromIndexes(rowNumber, columnNumber);
+        this.selectedItem = getValueFromGridAt(rowNumber, columnNumber);
     }
 
     private boolean rowNumberIsOutOfBoundsOfGrid(int rowNumber) {
@@ -57,7 +61,7 @@ public class AlphanumericGrid {
         return columnNumber > this.columnLength;
     }
 
-    private String getItemFromIndexes(int rowLetter, int columnNumber) {
+    private String getValueFromGridAt(int rowLetter, int columnNumber) {
         return grid[rowLetter][columnNumber];
     }
 
@@ -77,5 +81,22 @@ public class AlphanumericGrid {
 
     public String getSelectedItem() {
         return this.selectedItem;
+    }
+
+    public void removeItemByName(String itemName) {
+        //search array for item by name
+        for(int rowNum = 0; rowNum < rowLength; rowNum++) {
+            for(int colNum = 0; colNum < columnLength; colNum++) {
+
+                String itemFromGrid = getValueFromGridAt(rowNum, colNum);
+                if(itemFromGrid != null && itemFromGrid.equals(itemName)) {
+                    setValueOfGridAt(rowNum, colNum, null);
+                    break;
+                }
+            }
+        }
+
+        throw new RuntimeException("Item could not be found!");
+
     }
 }

@@ -13,33 +13,45 @@ import vendingmachine.core.money.MoneyHolder;
 import vendingmachine.core.money.MoneyUtil;
 import vendingmachine.core.store.Inventory;
 
+import java.text.DecimalFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimpleVendingMachine implements VendingMachine {
 
     private Inventory<Item> machineGoodsInventory;
     private MoneyHolder machineMoneyHolder;
+    private AlphanumericGrid alphanumericGrid;
 
     private Item selectedItem;
     private double currentBalance;
 
+    public static void main(String[] args) {
+        double goodsSquareRootSize = Math.sqrt((double) 5);
+        System.out.println(Math.ceil(goodsSquareRootSize));
+
+    }
     public SimpleVendingMachine(Inventory<Item> machineGoodsInventory, MoneyHolder machineMoneyHolder) {
         this.machineGoodsInventory = machineGoodsInventory;
         this.machineMoneyHolder = machineMoneyHolder;
+
+        this.alphanumericGrid = contructAlphanumericGrid(machineGoodsInventory);
+    }
+
+    private AlphanumericGrid contructAlphanumericGrid(Inventory<Item> itemInventory) {
+        double goodsSquareRootSize = Math.sqrt((double) itemInventory.getAvailableItems().size());
+        int squareRootSizeRoundedUp = Double.valueOf(Math.ceil(goodsSquareRootSize)).intValue();
+        int rows = squareRootSizeRoundedUp;
+        int columns = squareRootSizeRoundedUp;
+
+        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(columns, rows);
+        alphanumericGrid.loadDisplayableItems(machineGoodsInventory.getAvailableItems().stream().map(item -> item.getName()).collect(Collectors.toList()));
+        return alphanumericGrid;
     }
 
     @Override
     public Map<String, String> listInstockItemsWithId() {
-        Map<String, String> instockItemsWithId = new HashMap<>();
-
-        int idInt = 0;
-        for(Item item : machineGoodsInventory.getAvailableItems()) {
-
-            instockItemsWithId.put("01", item.getName());
-            idInt++;
-        }
-
-        return instockItemsWithId;
+        return this.alphanumericGrid.showItems();
     }
 
     @Override

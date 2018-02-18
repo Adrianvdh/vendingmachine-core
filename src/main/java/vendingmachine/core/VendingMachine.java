@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface VendingMachine {
 
-    Map<String,String> listInstockItemsWithId();
+    Map<String, String> listInstockItemsWithId();
 
     Collection<Item> getInstockItems();
 

@@ -93,9 +93,6 @@ public class AlphanumericGrid {
                 }
             }
         }
-
-        throw new RuntimeException("Item could not be found!");
-
     }
 
     public String getSelectedItem() {

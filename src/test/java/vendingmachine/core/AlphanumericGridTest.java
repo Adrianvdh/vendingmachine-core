@@ -89,8 +89,7 @@ public class AlphanumericGridTest {
         this.alphanumericGrid.removeItemByName("Classic Coke");
 
         // then
-        String selectionKey = "a1";
-        this.alphanumericGrid.enterSelectionKey(selectionKey);
+        this.alphanumericGrid.enterSelectionKey("a1");
         Assert.assertEquals(alphanumericGrid.getSelectedItem(), null);
     }
 }

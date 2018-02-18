@@ -19,14 +19,20 @@ public class AlphanumericGrid {
     }
 
     public void loadDisplayableItems(List<String> itemsToDisplay) {
+        Set<String> existingItems = new LinkedHashSet<>();
         //populate grid
         int itemIndex = 0;
         for (int rowLetterIndex = 0; rowLetterIndex < rowLength; rowLetterIndex++) {
             for (int columnNumberIndex = 0; columnNumberIndex < columnLength; columnNumberIndex++) {
-
                 if(itemIndex < itemsToDisplay.size()) {
                     String item = itemsToDisplay.get(itemIndex);
-                    setValueOfGridAt(rowLetterIndex, columnNumberIndex, item);
+                    if(!existingItems.contains(item)) {
+                        setValueOfGridAt(rowLetterIndex, columnNumberIndex, item);
+                        existingItems.add(item);
+                    }
+                }
+                else {
+                    break;
                 }
                 itemIndex++;
 
@@ -37,11 +43,15 @@ public class AlphanumericGrid {
 
     public Map<String, String> showItems() {
         Map<String, String> gridItems = new HashMap<>();
+        int itemIndex = 0;
 
-        for (int rowLetterIndex = 0; rowLetterIndex < rowLength; rowLetterIndex++) {
+        for (int rowLetterIndex = 0; rowLetterIndex < grid.length; rowLetterIndex++) {
             String letter = getLetterFromIndex(rowLetterIndex);
 
-            for (int columnNumberIndex = 0; columnNumberIndex < columnLength; columnNumberIndex++) {
+            for (int columnNumberIndex = 0; columnNumberIndex < grid[rowLetterIndex].length; columnNumberIndex++) {
+                if (grid[rowLetterIndex][columnNumberIndex] == null) {
+                    break;
+                }
                 gridItems.put(formatAlphanumeic(letter, columnNumberIndex), getValueFromGridAt(rowLetterIndex, columnNumberIndex));
             }
         }

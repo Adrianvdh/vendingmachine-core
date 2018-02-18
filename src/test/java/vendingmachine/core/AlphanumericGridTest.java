@@ -24,6 +24,17 @@ public class AlphanumericGridTest {
 
         Assert.assertThat(gridItems.get("a1"), Matchers.is("Classic Coke"));
         Assert.assertThat(gridItems.get("a2"), Matchers.is("Diary Chocolate"));
+        Assert.assertThat(gridItems.get("a3"), Matchers.is("Lays Original"));
+    }
+
+    @Test
+    public void testGridShouldHaveUniqueItems() throws Exception {
+        AlphanumericGrid alphanumericGrid = new AlphanumericGrid(2, 10);
+        alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original", "Diary Chocolate"));
+
+        Map<String, String> gridItems = alphanumericGrid.showItems();
+
+        Assert.assertThat(gridItems.values(), Matchers.hasSize(3));
     }
 
     @Test

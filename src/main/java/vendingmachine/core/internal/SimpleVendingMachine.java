@@ -1,18 +1,14 @@
 package vendingmachine.core.internal;
 
 import vendingmachine.core.VendingMachine;
-import vendingmachine.core.interaction.Order;
-import vendingmachine.core.interaction.Change;
-import vendingmachine.core.interaction.Coin;
-import vendingmachine.core.interaction.Note;
+import vendingmachine.core.interaction.*;
 import vendingmachine.core.item.Item;
-import vendingmachine.core.interaction.Money;
-import vendingmachine.core.store.MoneyHolder;
 import vendingmachine.core.store.Inventory;
-import  vendingmachine.core.internal.*;
+import vendingmachine.core.store.MoneyHolder;
 
-
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SimpleVendingMachine implements VendingMachine {
@@ -24,11 +20,6 @@ public class SimpleVendingMachine implements VendingMachine {
     private Item selectedItem;
     private double currentBalance;
 
-    public static void main(String[] args) {
-        double goodsSquareRootSize = Math.sqrt((double) 5);
-        System.out.println(Math.ceil(goodsSquareRootSize));
-
-    }
     public SimpleVendingMachine(Inventory<Item> machineGoodsInventory, MoneyHolder machineMoneyHolder) {
         this.machineGoodsInventory = machineGoodsInventory;
         this.machineMoneyHolder = machineMoneyHolder;

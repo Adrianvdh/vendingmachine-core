@@ -16,6 +16,11 @@ public class VendingMachineFactory {
     private MoneyHolder cashInventory;
     private Inventory<Item> goodsInventory;
 
+    private VendingMachineFactory() {
+        cashInventory = new MoneyHolder();
+        goodsInventory = new Inventory<>();
+    }
+
     public static VendingMachineFactory createVendingMachine() {
         return new VendingMachineFactory();
     }

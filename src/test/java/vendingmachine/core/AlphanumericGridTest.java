@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class AlphanumericGridTest {
 
@@ -15,6 +16,14 @@ public class AlphanumericGridTest {
     public void setUp() throws Exception {
         alphanumericGrid = new AlphanumericGrid(10, 10);
         alphanumericGrid.loadDisplayableItems(Arrays.asList("Classic Coke", "Diary Chocolate", "Lays Original"));
+    }
+
+    @Test
+    public void testShowListOfItemsWithKey_TenByTenGrid() throws Exception {
+        Map<String, String> gridItems =  alphanumericGrid.showItems();
+
+        Assert.assertThat(gridItems.get("a1"), Matchers.is("Classic Coke"));
+        Assert.assertThat(gridItems.get("a2"), Matchers.is("Diary Chocolate"));
     }
 
     @Test
